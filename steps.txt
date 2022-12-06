@@ -1,0 +1,41 @@
+1- npm init -y
+2- git init -> .gitignore
+3- install packages
+4- first settings for app.js
+5- settings for db connection
+6- 
+
+
+- app.js
+app.use(
+  require("express-session")({
+    secret: "a long time ago in a galaxy far far away",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+- models.js/User.js
+need this line: `userSchema.plugin(passportLocalmongoose);`
+
+- app.js => Add the following after the express-session setup and before the EJS Templating setup
+settings for passport and passport strategy
+
+- add UserOps.js
+
+- create RequestService.js
+
+- create controller - so they can validate use is authenticated
+  *** let reqInfo = RequestService.reqHelper(req);
+
+- create layouts and views
+
+- create routes and add them to app.js
+
+- create register.ejs views
+
+- *********** create user controller to display form and receive data from POST and handle the authentication process
+
+- create user router
+
+- create and set register and loggin forms (views), controller, and routes

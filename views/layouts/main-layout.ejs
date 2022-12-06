@@ -1,0 +1,36 @@
+<% /* let user = ""; %>
+<% if ((typeof reqInfo !== "undefined") && (typeof reqInfo.authenticated !== "undefined") && (reqInfo.authenticated === "true")) { %>
+  <% user = reqInfo; %>
+<% } %>
+<% console.log("userrrrrrrrr: ", user || reqInfo); */ %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Passport Auth Demo</title>
+</head>
+<body>
+    <main role="main" class="container">
+        <div class="starter-template">
+    
+          
+          <!-- Show 'Logout' and user name if authenticated. -->
+          <%if ((typeof reqInfo !== "undefined") && (reqInfo.authenticated)) { %>
+            <span>Hi <a href='/user'><%= reqInfo.username %>!</a></span> |
+            <a href='/user/logout'>Logout</a>
+            
+            <!-- 'else' must be in separate section with curly brackets to work. -->
+            <% } else { %>
+              <a href='/user/register'>Register</a> | 
+              <a href='/user/login'>Login</a>
+            <% } %>
+    
+            <!-- Child view goes here. -->
+            <%- body %>
+        </div>
+    </main>
+    
+</body>
+</html>
