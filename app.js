@@ -57,18 +57,20 @@ app.use(indexRoute);
 const userRouter = require("./routes/userRouter.js");
 // app.use("/user", userRouter);
 app.use(
-    "/user", 
-    ((req, res, next) => {
-        console.log("req.body-APP:::::::::: ", req.body);
-        next();
-    }), 
-    userRouter
-    );
+  "/user", 
+  ((req, res, next) => {
+      console.log("req.body-APP:::::::::: ", req.body);
+      console.log("req.body-APP-isAuthenticated:::::::::: ", req.isAuthenticated());
+      next();
+  }), 
+  userRouter
+);
 
 // Secure routes
 const secureRouter = require("./routes/secureRouter.js");
 app.use("/secure", secureRouter);
 
+// Error Route
 const error = require("./controllers/errorController");
 app.use("*", error.Index);
 // res.redirect("/user/login?errorMessage=You must be logged in to view this page.");

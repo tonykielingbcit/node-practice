@@ -7,11 +7,11 @@ const RequestService = require("../services/RequestService");
 
 exports.Profile = async (req, res) => {
     const reqInfo = RequestService.reqHelper(req);
-// console.log("-----------------------------reqInfo: ", reqInfo);
+    
     if (reqInfo.authenticated) {
         const UserOps = require("../data/UserOps.js");
         const getUser = await UserOps.getUserByUsername(reqInfo.username);
-        console.log("-----------------------------getUser: ", getUser);
+        // console.log("-----------------------------getUser: ", getUser);
 
         res.render("user/details", {
             user: getUser.obj,
@@ -25,11 +25,8 @@ exports.Profile = async (req, res) => {
 
 // Displays registration form.
 exports.Register = async function (req, res) {
-    // console.log("-------------register!!");
-    // const tempUser = await User.find();
-    // console.log("-------------users::: ", tempUser);
     let reqInfo = RequestService.reqHelper(req);
-    // console.log("========reqInfo: ", reqInfo);
+    
     res.render("user/register", { errorMessage: "", user: {}, reqInfo: reqInfo });
 };
 
@@ -76,7 +73,7 @@ exports.RegisterUser = async function (req, res) {
             }
         );
     } else {
-        // if password !== passwordConfirm
+        // it runs if password !== passwordConfirm
         let reqInfo = RequestService.reqHelper(req);
         res.render("user/register", {
             user: {
@@ -127,19 +124,24 @@ exports.LoginUser = (req, res, next) => {
 exports.Logout = (req, res) => {
     // Use Passports logout function
     req.logout((err) => {
-      if (err) {
-        console.log("logout error");
-        return next(err);
-      } else {
-        // logged out.  Update the reqInfo and redirect to the login page
-        let reqInfo = RequestService.reqHelper(req);
-        res.render("user/login", {
-          user: {},
-          isLoggedIn: false,
-          errorMessage: "",
-          reqInfo: reqInfo,
-        });
-      }
+        if (err) {
+            console.log("logout error");
+            return next(err);
+        } else {
+            // logged out.  Update the reqInfo and redirect to the login page
+            let reqInfo = RequestService.reqHelper(req);
+            res.render("user/login", {
+                user: {},
+                isLoggedIn: false,
+                errorMessage: "",
+                reqInfo: reqInfo,
+            });
+        }
     });
-  };
-  
+};
+
+exports.NoFound = (req, res) => {
+    let reqInfo = RequestService.reqHelper(req);
+
+    res.render("notFound", { message: "User Page not found.", reqInfo })
+}
